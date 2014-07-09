@@ -1,0 +1,31 @@
+<h1>Quiz Portal</h1>
+<% if current_user %>
+	Welcome <%= current_user.email %> | <%= link_to 'Signout', destroy_user_session_path , method: :delete%>
+    <h3>Question for this User</h3> 
+    
+    <table>
+	<thead>
+		<tr>
+			<th>Question</th>
+			<th colspan="3"></th>
+			</tr>
+	</thead>
+
+	<tbody>
+		<% @questions.each do |question| %>
+			<tr>
+				<td><%= question.question %></td>
+				<td><%= link_to 'Show', question %></td>
+				<td><%= link_to 'Edit', edit_question_path(question) %></td>
+				<td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
+	</tbody>
+	</table>
+	
+	
+<% else%>	
+	<%= link_to 'Register', new_user_registration_path %>
+	<%= link_to 'SignIn', new_user_session_path %>
+	<%= link_to 'New Question', new_question_path %>
+<% end %
